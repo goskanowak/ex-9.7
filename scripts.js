@@ -1,14 +1,17 @@
+
 var newGameBtn = document.getElementById('js-newGameButton'),
     pickRock = document.getElementById('js-playerPick_rock'),
     pickPaper = document.getElementById('js-playerPick_paper'),
     pickScissors = document.getElementById('js-playerPick_scissors'),
     name = document.getElementById('js-playerName');
 
+// Define a listener on buttons who start function the player choise 
 newGameBtn.addEventListener('click', newGame);
 pickRock.addEventListener('click', function() { playerPick('rock'); });
 pickPaper.addEventListener('click', function() { playerPick('paper'); });
 pickScissors.addEventListener('click', function() { playerPick('scissors'); });
 
+// Define status game and store objects (player and computer)
 var gameState = 'notStarted' || 'started' || 'ended',
     player = {
         name: '',
@@ -22,6 +25,7 @@ var newGameElem = document.getElementById('js-newGameElement'),
     pickElem = document.getElementById('js-playerPickElement'),
     resultsElem = document.getElementById('js-resultsTableElement');
 
+// function who store status game
 function setGameElements() {
   switch(gameState) {
     case 'started':
@@ -45,6 +49,7 @@ var playerPointsElem = document.getElementById('js-playerPoints'),
     playerNameElem = document.getElementById('js-playerName'),
     computerPointsElem = document.getElementById('js-computerPoints');
 
+// Function who started when click button 'new game'/'one more time'.
 function newGame() {
   player.name = prompt('Your name', '');
     // how to do max 20 letters in name??
@@ -58,6 +63,12 @@ function newGame() {
   }
 }
 
+// Function who pick player choice. 
+function playerPick(playerPick) {
+    console.log(playerPick);
+}
+
+// Random choice computer, integer betwen 0 and 2
 Math.floor(Math.random()*3);
 
 function getComputerPick() {
@@ -70,6 +81,18 @@ var playerPickElem = document.getElementById('js-playerPick'),
     playerResultElem = document.getElementById('js-playerResult'),
     computerResultElem = document.getElementById('js-computerResult');
 
+// Function who put player and computer choices on the site
+
+function playerPick(playerPick) {
+    var computerPick = getComputerPick();
+
+    playerPickElem.innerHTML = playerPick;
+    computerPickElem.innerHTML = computerPick;
+
+    checkRoundWinner(playerPick, computerPick);
+}
+
+//Check who won && add points && display points on the site
 function checkRoundWinner(playerPick, computerPick) {
     playerResultElem.innerHTML = computerResultElem.innerHTML = '';
 
@@ -97,15 +120,7 @@ function checkRoundWinner(playerPick, computerPick) {
     gameEnd();
 }
 
-function playerPick(playerPick) {
-    var computerPick = getComputerPick();
-
-    playerPickElem.innerHTML = playerPick;
-    computerPickElem.innerHTML = computerPick;
-
-    checkRoundWinner(playerPick, computerPick);
-}
-
+// Display result game on the page
 function setGamePoints() {
     playerPointsElem.innerHTML = player.score;
     computerPointsElem.innerHTML = computer.score;
