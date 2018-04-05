@@ -5,6 +5,15 @@ var newGameBtn = document.getElementById('js-newGameButton'),
     pickScissors = document.getElementById('js-playerPick_scissors'),
     name = document.getElementById('js-playerName');
 
+//function who don't allow more than 15 letters in name  
+function lenghtName () {
+   var playerName = player.name.length;
+    if (playerName >= 15){
+        alert('Your name is to long');
+        newGame();
+    }
+} 
+
 // Define a listener on buttons who start function the player choise 
 newGameBtn.addEventListener('click', newGame);
 pickRock.addEventListener('click', function() { playerPick('rock'); });
@@ -32,7 +41,7 @@ function setGameElements() {
         newGameElem.style.display = 'none';
         pickElem.style.display = 'block';
         resultsElem.style.display = 'block';
-      break;
+        break;
     case 'ended':
         newGameBtn.innerText = 'One more time';
     case 'notStarted':
@@ -51,26 +60,20 @@ var playerPointsElem = document.getElementById('js-playerPoints'),
 
 // Function who started when click button 'new game'/'one more time'.
 function newGame() {
-  player.name = prompt('Your name', '');
-    // how to do max 20 letters in name??
-  if (player.name) {
-    player.score = computer.score = 0;
-    gameState = 'started';
-    setGameElements();
+    player.name = prompt('Your name', '');
+    lenghtName();
+    
+    if (player.name) {
+        player.score = computer.score = 0;
+        gameState = 'started';
+        setGameElements();
 
-    playerNameElem.innerHTML = player.name;
-    setGamePoints();
-  }
+        playerNameElem.innerHTML = player.name;
+        setGamePoints();
+    }
 }
 
-// Function who pick player choice. 
-function playerPick(playerPick) {
-    console.log(playerPick);
-}
-
-// Random choice computer, integer betwen 0 and 2
-Math.floor(Math.random()*3);
-
+// Function who random choice computer, integer betwen 0 and 2
 function getComputerPick() {
     var possiblePicks = ['rock', 'paper', 'scissors'];
     return possiblePicks[Math.floor(Math.random()*3)];
@@ -98,9 +101,9 @@ function checkRoundWinner(playerPick, computerPick) {
 
     var winnerIs = 'player';
 
-    if (playerPick == computerPick) {
+    if (playerPick === computerPick) {
         winnerIs = 'noone';
-            playerResultElem.innerHTML = computerResultElem.innerHTML = 'Remis';
+        playerResultElem.innerHTML = computerResultElem.innerHTML = 'Remis';
     } else if (
         (computerPick == 'rock' &&  playerPick == 'scissors') ||
         (computerPick == 'scissors' &&  playerPick == 'paper') ||
