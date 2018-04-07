@@ -5,15 +5,6 @@ var newGameBtn = document.getElementById('js-newGameButton'),
     pickScissors = document.getElementById('js-playerPick_scissors'),
     name = document.getElementById('js-playerName');
 
-//function who don't allow more than 15 letters in name  
-function lenghtName () {
-   var playerName = player.name.length;
-    if (playerName >= 15){
-        alert('Your name is to long');
-        newGame();
-    }
-} 
-
 // Define a listener on buttons who start function the player choise 
 newGameBtn.addEventListener('click', newGame);
 pickRock.addEventListener('click', function() { playerPick('rock'); });
@@ -57,11 +48,20 @@ setGameElements();
 var playerPointsElem = document.getElementById('js-playerPoints'),
     playerNameElem = document.getElementById('js-playerName'),
     computerPointsElem = document.getElementById('js-computerPoints');
-
+ 
 // Function who started when click button 'new game'/'one more time'.
 function newGame() {
-    player.name = prompt('Your name', '');
-    lenghtName();
+        player.name = prompt('Your name', '');
+    
+        //function who don't allow more than 15 letters in name  
+        function checkLenghtName () {
+            var playerName = player.name.length;
+            if (playerName >= 15){
+                alert('Your name is to long');
+                newGame();
+            }
+        } 
+    checkLenghtName();
     
     if (player.name) {
         player.score = computer.score = 0;
@@ -69,6 +69,7 @@ function newGame() {
         setGameElements();
 
         playerNameElem.innerHTML = player.name;
+        
         setGamePoints();
     }
 }
