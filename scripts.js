@@ -61,15 +61,16 @@ function newGame() {
                 newGame();
             }
         } 
-    checkLenghtName();
     
     if (player.name) {
         player.score = computer.score = 0;
         gameState = 'started';
+        
         setGameElements();
 
         playerNameElem.innerHTML = player.name;
         
+        checkLenghtName();
         setGamePoints();
     }
 }
